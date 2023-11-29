@@ -18,17 +18,17 @@ function Rate() {
       <p className="font-Inter text-gega-main text-[25px] font-semibold mb-5">
         Qiymətləndirmə
       </p>
-      <div className="w-full bg-gega-main h-[200px] rounded-lg flex justify-around text-white">
-        <div className="flex justify-around items-center w-full">
+      <div className="w-full bg-gega-main py-10 px-10 rounded-lg flex justify-around text-white">
+        <div className="flex justify-around items-center flex-wrap gap-10 w-full">
           {numbers.map((number) => (
             <div
               key={number}
               onClick={() => setSelectedNumber(number)}
-              className={`rounded-full w-[50px] h-[50px]  text-black bg-gega-white flex items-center justify-center flex-wrap max-md:w-[30px] max-md:h-[30px] hover:cursor-pointer ${
+              className={`rounded-full w-[50px] h-[50px]  text-black bg-gega-white flex items-center justify-center hover:cursor-pointer ${
                 selectedNumber == number ? "border-4 border-gega-green" : ""
               }`}
             >
-              <p className="text-[20px] font-semibold max-md:text-[15px]">
+              <p className="text-[20px] font-semibold">
                 {number}
               </p>
             </div>
