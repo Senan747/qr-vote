@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { environment } from "../environment/environment";
+import { fetchApi } from "../utils/crud";
+import { ApiMethods } from "../interfaces/method";
+import { VOTE_URL } from "../constants/url";
 
 function Main() {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const [selectedNumber, setSelectedNumber] = useState<number | undefined>();
-  const [pin, setPin] = useState<string | undefined>();
-  const [open, setOpen] = useState<boolean | false>(false);
+  const [selectedNumber, setSelectedNumber] = useState<number>();
+  const [teamId, setTeamId] = useState<string>("La la la");
+  const [pin, setPin] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleCloseAlert = () => {
     setOpen(false);
@@ -12,9 +17,25 @@ function Main() {
     setSelectedNumber(undefined);
   };
 
+  const handleSubmit = () => {
+    console.log(pin, selectedNumber);
+    sendVote();
+    setOpen(true)
+  }
+
+  const sendVote = () => {
+    let sendVoteBody = {
+      voterId: pin,
+      rating: selectedNumber,
+      teamId
+    }
+    fetch(environment.apiUrl + VOTE_URL.POST, fetchApi(ApiMethods.POST, sendVoteBody))
+    .then(res => res.json())
+    .then(data => console.log(data))
+  }
   return (
     <div className="p-[64px] max-md:p-[20px]">
-      <div className="font-Inter">
+      <div className="font-Inter"> 
         <p className="font-Inter text-gega-main text-[25px] font-semibold mb-5">
           Təqdimatçılar
         </p>
@@ -88,7 +109,7 @@ function Main() {
               pin && selectedNumber ? "" : "opacity-50"
             }`}
             disabled={pin && selectedNumber ? false : true}
-            onClick={() => setOpen(true)}
+            onClick={handleSubmit}
           >
             Təsdiq edin
           </button>
