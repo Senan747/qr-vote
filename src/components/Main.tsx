@@ -7,12 +7,13 @@ import { useParams } from "react-router-dom";
 
 function Main() {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  let { teamId }: any = useParams();
+  let { id }: any = useParams();
   const [selectedNumber, setSelectedNumber] = useState<number>();
   const [pin, setPin] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [members, setMembers] = useState([]);
 
+  // const params = useParams();
   const handleCloseAlert = () => {
     setOpen(false);
     setPin("");
@@ -28,22 +29,23 @@ function Main() {
     let sendVoteBody = {
       voterId: pin,
       rating: selectedNumber,
-      teamId,
+      teamId: id,
     };
     fetch(
       environment.apiUrl + VOTE_URL.POST,
       fetchApi(ApiMethods.POST, sendVoteBody)
     ).then((res) => res.json());
   };
+  console.log(id);
 
   useEffect(() => {
     fetch(
-      environment.apiUrl + TEAM_URL.PUT(teamId),
+      environment.apiUrl + TEAM_URL.PUT(id),
       fetchApi(ApiMethods.GET, undefined)
     )
       .then((res) => res.json())
       .then((data) => setMembers(data.teamMembers));
-  }, [teamId]);
+  }, [id]);
   return (
     <div className="p-[64px] max-md:p-[20px]">
       <div className="font-Inter">
@@ -55,7 +57,7 @@ function Main() {
             return (
               <div key={index} className="flex items-center gap-5">
                 <img
-                  src="biker 1.png"
+                  src="/biker 1.png"
                   className="rounded-full bg-gega-white"
                   alt=""
                 />
