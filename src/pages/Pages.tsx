@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 function Pages() {
   return (
     <Routes>
-      <Route path="/teamId/:id/*" element={<Home />} />
+      <Route path="/teamId/:id" element={<Home />} />
     </Routes>
   );
 }
