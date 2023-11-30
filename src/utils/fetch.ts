@@ -1,10 +1,12 @@
 export const fetchApi = (method: string, body: any) => {
-    const options = {
+    let options: any = {
         headers: {
             "Content-Type": "application/json",
         },
         method,
-        body: JSON.stringify(body)
+    }
+    if(body){
+        options['body'] = JSON.stringify(body)
     }
     return options;
 }
