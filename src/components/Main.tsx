@@ -13,7 +13,6 @@ function Main() {
   const [open, setOpen] = useState<boolean>(false);
   const [members, setMembers] = useState([]);
 
-  // const params = useParams();
   const handleCloseAlert = () => {
     setOpen(false);
     setPin("");
@@ -36,7 +35,6 @@ function Main() {
       fetchApi(ApiMethods.POST, sendVoteBody)
     ).then((res) => res.json());
   };
-  console.log(id);
 
   useEffect(() => {
     fetch(
