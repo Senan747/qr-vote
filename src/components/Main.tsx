@@ -20,27 +20,30 @@ function Main() {
   };
 
   const handleSubmit = () => {
-    console.log(pin, selectedNumber);
     sendVote();
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const sendVote = () => {
     let sendVoteBody = {
       voterId: pin,
       rating: selectedNumber,
-      teamId
-    }
-    fetch(environment.apiUrl + VOTE_URL.POST, fetchApi(ApiMethods.POST, sendVoteBody))
-      .then(res => res.json())
-      .then(data => console.log(data))
-  }
+      teamId,
+    };
+    fetch(
+      environment.apiUrl + VOTE_URL.POST,
+      fetchApi(ApiMethods.POST, sendVoteBody)
+    ).then((res) => res.json());
+  };
 
   useEffect(() => {
-    fetch(environment.apiUrl + TEAM_URL.PUT(teamId), fetchApi(ApiMethods.GET, undefined))
-      .then(res => res.json())
-      .then(data => setMembers(data.teamMembers))
-  }, [teamId])
+    fetch(
+      environment.apiUrl + TEAM_URL.PUT(teamId),
+      fetchApi(ApiMethods.GET, undefined)
+    )
+      .then((res) => res.json())
+      .then((data) => setMembers(data.teamMembers));
+  }, [teamId]);
   return (
     <div className="p-[64px] max-md:p-[20px]">
       <div className="font-Inter">
@@ -61,7 +64,7 @@ function Main() {
                   <p>{member.name}</p>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
@@ -75,8 +78,9 @@ function Main() {
               <div
                 key={number}
                 onClick={() => setSelectedNumber(number)}
-                className={`rounded-full w-[50px] h-[50px]  text-black bg-gega-white flex items-center justify-center hover:cursor-pointer ${selectedNumber == number ? "border-4 border-gega-green" : ""
-                  }`}
+                className={`rounded-full w-[50px] h-[50px]  text-black bg-gega-white flex items-center justify-center hover:cursor-pointer ${
+                  selectedNumber == number ? "border-4 border-gega-green" : ""
+                }`}
               >
                 <p className="text-[20px] font-semibold">{number}</p>
               </div>
@@ -94,8 +98,9 @@ function Main() {
         </div>
         <div className="w-full flex items-center justify-center mt-7 ">
           <button
-            className={`bg-gega-main text-white text-xl px-8 py-2 font-semibold rounded-3xl outline-none ${pin && selectedNumber ? "" : "opacity-50"
-              }`}
+            className={`bg-gega-main text-white text-xl px-8 py-2 font-semibold rounded-3xl outline-none ${
+              pin && selectedNumber ? "" : "opacity-50"
+            }`}
             disabled={pin && selectedNumber ? false : true}
             onClick={handleSubmit}
           >
