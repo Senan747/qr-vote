@@ -1,3 +1,4 @@
+import { Route, Routes } from "react-router-dom";
 import Main from "../components/Main";
 
 function Home() {
@@ -12,7 +13,9 @@ function Home() {
         />
         <img src="dka-logo.webp" width={170} alt="" className="max-2xl:w-370" />
       </div>
-      <Main />
+      <Routes>
+      <Route element={<Main />} path="/:teamId" />
+      </Routes>
     </div>
   );
 }
